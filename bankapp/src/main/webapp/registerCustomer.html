@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="ISO-8859-1">
-<title>Bank X</title>
+<title>Customer Registration</title>
 </head>
 <body>
 	<h1>Hello World</h1>
-	<form action="/bankapp/signin">
+	<form action="/bankapp/register">
 		<table>
 			<tr>
 				<td>User Name:</td>
 				<td><input type="text" name="cusUserName"></td>
 			</tr>
 			<tr>
+				<td>Name:</td>
+				<td><input type="text" name="cusName"></td>
+			</tr>
+			<tr>
 				<td>Password:</td>
 				<td><input type="password" name="cusPassword"></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Log In"></td>
-				<td><button
-						onclick="location.href='/bankapp/registerCustomer.html'"
-						type="button">Register</button></td>
+				<td><input type="submit" value="Register"></td>
 			</tr>
 		</table>
-	</form>
 
+	</form>
 </body>
 </html>

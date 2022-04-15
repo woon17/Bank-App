@@ -20,7 +20,13 @@ public class register extends HttpServlet {
 		Customer newCustomer = new Customer(cusName, cusUserName, cusPassword);		
 		Model model = new Model();
 		model.createHibernateSession();
-		model.registerCustomer(newCustomer);
+		boolean result = model.registerCustomer(newCustomer);
+		
+		if(result) {
+			resp.sendRedirect("/bankapp/index.html");
+		}else {
+			resp.sendRedirect("/bankapp/registerFail.html");
+		}
 		System.out.println("register servlet works");
 		
 		

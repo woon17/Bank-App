@@ -21,13 +21,26 @@ public class Model {
 			session.save(c);
 			session.getTransaction().commit();
 			System.out.println("model.registerCustomer success...");
-		 return true;
+			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
 //			e.printStackTrace();
 			return false;
 		}
+	}
 
-		
+	public int verifyLogin(Customer loginCusotmer) {
+		session.beginTransaction();
+		Customer cus = (Customer) session.get(Customer.class, loginCusotmer.getCusUserName());
+		session.getTransaction().commit();
+		if(cus==null) {
+			return -1;// username is not existing in database
+		}else {
+			if(!cus.getCusPassword().equals(loginCusotmer.getCusPassword())) {
+				return 0;// password not match
+			}else {
+				return 1;// both matched
+			}
+		}
 	}
 }
