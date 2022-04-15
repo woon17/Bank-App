@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class logout
  */
-public class logout extends HttpServlet {
+public class Logout extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();

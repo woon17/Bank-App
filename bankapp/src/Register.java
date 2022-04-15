@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class Singin
  */
-public class register extends HttpServlet {
+public class Register extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String cusName = req.getParameter("cusName");

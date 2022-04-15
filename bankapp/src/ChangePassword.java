@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class changePassword
  */
-public class changePassword extends HttpServlet {
+public class ChangePassword extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String inputOldPassword = req.getParameter("oldPassword");

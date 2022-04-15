@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class signin
  */
-public class signin extends HttpServlet {
+public class Signin extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String inputUsername = req.getParameter("cusUserName");

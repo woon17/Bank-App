@@ -8,7 +8,7 @@
 </head>
 <body>
 	<div style="float: right">
-		<form action="/bankapp/logout" method="get">
+		<form action="/bankapp/Logout" method="get">
 			<br> <input type="submit" value="Logout" />
 		</form>
 	</div>
