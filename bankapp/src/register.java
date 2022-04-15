@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -17,22 +16,21 @@ public class register extends HttpServlet {
 		String cusName = req.getParameter("cusName");
 		String cusUserName = req.getParameter("cusUserName");
 		String cusPassword = req.getParameter("cusPassword");
-		
-		Customer newCustomer = new Customer(cusName, cusUserName, cusPassword);		
+
+		Customer newCustomer = new Customer(cusName, cusUserName, cusPassword);
 		Model model = new Model();
 		model.createHibernateSession();
 		boolean result = model.registerCustomer(newCustomer);
-		
-		if(result) {
+
+		if (result) {
 			HttpSession session = req.getSession(true);// create a new session
 			session.setAttribute("cusUserName", cusUserName);
 			resp.sendRedirect("/bankapp/customerLoginSuccess.jsp");
-		}else {
+		} else {
 			resp.sendRedirect("/bankapp/registerFail.html");
 		}
 		System.out.println("register servlet works");
-		
-		
+
 	}
 
 }
