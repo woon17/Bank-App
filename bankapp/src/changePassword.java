@@ -16,26 +16,30 @@ public class changePassword extends HttpServlet {
 		String inputNewPassword = req.getParameter("newPassword");
 		HttpSession session = req.getSession();
 		String username = (String) session.getAttribute("cusUserName");
-		System.out.println(String.format("username: %s; input old password: %s; old password: %s", username, inputNewPassword, inputOldPassword));
-		
+		System.out.println(String.format("username: %s; input old password: %s; old password: %s", username,
+				inputNewPassword, inputOldPassword));
+
 		Model model = new Model();
 		model.createHibernateSession();
 		Customer loginCustomer = new Customer(username, inputOldPassword);
 		model.setLoginCustomer(loginCustomer);
 		int oldPasswordResult = model.verifyLogin();
-		
+
 		if (oldPasswordResult == 1) {
 			model.createHibernateSession();
 			int passwordUpdateResult = model.changePassword(inputNewPassword);
-			if(passwordUpdateResult ==0) {
+			if (passwordUpdateResult == 0) {
 				System.out.println("new password is the same as the old password");
-			}else {
+				resp.sendRedirect("/bankapp/newPasswordInvalid.html");
+			} else {
 				System.out.println("new password updated successfully");
+				resp.sendRedirect("/bankapp/updatePasswordSuccess.jsp");
 			}
-		}else if(oldPasswordResult == 0){
+		} else if (oldPasswordResult == 0) {
 			System.out.println("old password in incorrect");
+			resp.sendRedirect("/bankapp/oldPasswordInvalid.html");
 		}
-		
+
 	}
 
 }
