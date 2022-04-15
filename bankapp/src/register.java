@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Singin
@@ -23,7 +24,9 @@ public class register extends HttpServlet {
 		boolean result = model.registerCustomer(newCustomer);
 		
 		if(result) {
-			resp.sendRedirect("/bankapp/index.html");
+			HttpSession session = req.getSession(true);// create a new session
+			session.setAttribute("cusUserName", cusUserName);
+			resp.sendRedirect("/bankapp/customerLoginSuccess.jsp");
 		}else {
 			resp.sendRedirect("/bankapp/registerFail.html");
 		}
