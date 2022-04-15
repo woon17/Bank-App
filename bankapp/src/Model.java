@@ -5,6 +5,11 @@ import org.hibernate.cfg.Configuration;
 
 public class Model {
 	private Session session;
+	private Customer loginCustomer;
+
+	public void setLoginCustomer(Customer loginCustomer) {
+		this.loginCustomer = loginCustomer;
+	}
 
 	public void createHibernateSession() {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
@@ -29,18 +34,32 @@ public class Model {
 		}
 	}
 
-	public int verifyLogin(Customer loginCusotmer) {
+	public int verifyLogin() {
 		session.beginTransaction();
-		Customer cus = (Customer) session.get(Customer.class, loginCusotmer.getCusUserName());
+		Customer cus = (Customer) session.get(Customer.class, this.loginCustomer.getCusUserName());
 		session.getTransaction().commit();
-		if(cus==null) {
+		if (cus == null) {
 			return -1;// username is not existing in database
-		}else {
-			if(!cus.getCusPassword().equals(loginCusotmer.getCusPassword())) {
+		} else {
+			if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
 				return 0;// password not match
-			}else {
+			} else {
 				return 1;// both matched
 			}
 		}
+	}
+
+	public int changePassword(String inputNewPassword) {
+		if (this.loginCustomer.getCusPassword().equals(inputNewPassword)) {
+			return 0;// new password is the same as old password
+		} else {
+			session.beginTransaction();
+			Customer cus = (Customer) session.get(Customer.class, this.loginCustomer.getCusUserName());
+			cus.setCusPassword(inputNewPassword);
+			session.update(cus);
+			session.getTransaction().commit();
+			return 1;// new password updated
+		}
+
 	}
 }

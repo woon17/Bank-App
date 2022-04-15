@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class signin
@@ -17,14 +18,22 @@ public class signin extends HttpServlet {
 		Model model = new Model();
 		model.createHibernateSession();
 		Customer loginCusotmer = new Customer(inputUsername, inputPassword);
-		int verifyResult = model.verifyLogin(loginCusotmer);
+		model.setLoginCustomer(loginCusotmer);
+		int verifyResult = model.verifyLogin();
 		if(verifyResult == -1) {
 			System.out.println("username invalid");
 		}else if(verifyResult == 0) {
 			System.out.println("password invalid");
 		}else {
 			System.out.println("Customer login successfully");
+			
+			HttpSession session = req.getSession(true);// create a new session
+			session.setAttribute("cusUserName", inputUsername);
+			resp.sendRedirect("/bankapp/customerLoginSuccess.jsp");
+			return;
 		}
+		
+		
 		
 	}
 }
