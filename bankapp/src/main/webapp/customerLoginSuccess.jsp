@@ -7,6 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div style="float:right">
+		<form action="/bankapp/logout" method="get">
+			<br> <input type="submit" value="Logout" />
+		</form>
+	</div>
 	<p>
 		<span>Welcome customer</span>,
 		<%
@@ -16,6 +21,9 @@
 		/* ses.getAttribute("un") */
 		%>. You login successfully
 	</p>
+
+
+
 	<a href="/bankapp/makeTransaction.html">Make a transaction</a>
 	<br>
 	<a href="/bankapp/changePassword.html">change password</a>
