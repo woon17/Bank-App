@@ -10,10 +10,10 @@ public class Customer {
 	@Id // primary key
 	@Column(name = "USERNAME ")
 	private String cusUserName;
-	
+
 	@Column(name = "NAME")
 	private String cusName;
-	
+
 	@Column(name = "PASSWORD")
 	private String cusPassword;
 
@@ -24,9 +24,17 @@ public class Customer {
 
 	}
 
+	// used by customer registration
 	public Customer(String cusName, String cusUserName, String cusPassword) {
 		super();
 		this.cusName = cusName;
+		this.cusUserName = cusUserName;
+		this.cusPassword = cusPassword;
+	}
+
+	// used by customer login
+	public Customer(String cusUserName, String cusPassword) {
+		super();
 		this.cusUserName = cusUserName;
 		this.cusPassword = cusPassword;
 	}
