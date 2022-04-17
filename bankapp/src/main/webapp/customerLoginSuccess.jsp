@@ -22,14 +22,13 @@
 		%>. You login successfully
 	</p>
 
-
-
-	<a href="/bankapp/makeTransaction.html">Make a transaction</a>
-	<br>
 	<a href="/bankapp/changePassword.html">change password</a>
 	<br>
-	<a href="/bankapp/CheckStatus">check transaction</a>
+	<a href="/bankapp/withdrawMoney.html">Withdraw Money</a>
 	<br>
+	<a href="/bankapp/applyLoan.html">Apply for Loan</a>
+	<br>
+	<a href="/bankapp/viewStatement.html">View statement</a>
 
 </body>
 </html>
