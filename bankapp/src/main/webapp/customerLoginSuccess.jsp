@@ -3,33 +3,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-	<div style="float: right">
+	<div class="logout">
 		<form action="/bankapp/Logout" method="get">
 			<br> <input type="submit" value="Logout" />
 		</form>
 	</div>
-	<p>
-		<span>Welcome customer</span>,
-		<%
+
+  <h1>Welcome, <%
 		// println in broswer, in client machine. not in console
 		HttpSession ses = request.getSession();
 		out.println(ses.getAttribute("cusUserName"));
 		/* ses.getAttribute("un") */
-		%>. You login successfully
-	</p>
-
-
-
-	<a href="/bankapp/makeTransaction.html">Make a transaction</a>
-	<br>
-	<a href="/bankapp/changePassword.html">change password</a>
-	<br>
-	<a href="/bankapp/CheckStatus">check transaction</a>
-	<br>
+		%> </h1>
+  <div class="container loginSuccess">
+    <div>
+      <h3>what would you like to do?</h3>
+      <ul>
+        <li><a href="/bankapp/makeTransaction.html">Make a transaction</a></li>
+        <li><a href="/bankapp/changePassword.html">Change password</a></li>
+        <li><a href="/bankapp/CheckStatus">Check transaction</a></li>
+        <li><a href="/bankapp/CheckBalance">Check balance</a></li>
+      </ul>
+    
+    </div>
+  </div>
 
 </body>
 </html>

@@ -1,29 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1 style="color: red">User Name is invalid</h1>
+
+  
+	<h1 align="center">Welcome to XXX Bank</h1>
+	<div class="container indexfile">
 	<form action="/bankapp/Signin">
 		<table>
+          <tr>
+           <td colspan="2"><h4 class="errorTitle">username invalid</h4></td>
+          </tr>
 			<tr>
 				<td>User Name:</td>
-				<td><input type="text" name="cusUserName" required></td>
+				<td class="errorBox"><input type="text" name="cusUserName"></td>
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><input type="password" name="cusPassword" required></td>
+				<td><input type="password" name="cusPassword"></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Log In"></td>
-				<td><button
-						onclick="location.href='/bankapp/registerCustomer.html'"
-						type="button">Register</button></td>
+              	<td></td>
+				<td><input id="login" class="buttons" type="submit" value="Log In"></td>
 			</tr>
 		</table>
+
 	</form>
+	
+	</div>
+	
 
 </body>
 </html>

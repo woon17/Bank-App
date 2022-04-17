@@ -62,4 +62,14 @@ public class Model {
 		}
 
 	}
+	
+	public int checkBalance(String cusUserName){
+			
+			session.beginTransaction();
+			Customer cus = (Customer) session.get(Customer.class,cusUserName);
+			session.getTransaction().commit();
+			return cus.getCusBalance();
+	
+			
+		}
 }
