@@ -32,6 +32,27 @@
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>Logout</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>WithdrawMoney</display-name>
+		<servlet-name>WithdrawMoney</servlet-name>
+		<servlet-class>WithdrawMoney</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ApplyLoan</display-name>
+		<servlet-name>ApplyLoan</servlet-name>
+		<servlet-class>ApplyLoan</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ViewStatement</display-name>
+		<servlet-name>ViewStatement</servlet-name>
+		<servlet-class>ViewStatement</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>Register</servlet-name>
@@ -48,6 +69,18 @@
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>WithdrawMoney</servlet-name>
+		<url-pattern>/WithdrawMoney</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ApplyLoan</servlet-name>
+		<url-pattern>/ApplyLoan</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ViewStatement</servlet-name>
+		<url-pattern>/ViewStatement</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
