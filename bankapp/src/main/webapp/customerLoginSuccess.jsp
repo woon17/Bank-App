@@ -24,14 +24,17 @@
     <div>
       <h3>what would you like to do?</h3>
       <ul>
-        <li><a href="/bankapp/makeTransaction.html">Make a transaction</a></li>
         <li><a href="/bankapp/changePassword.html">Change password</a></li>
-        <li><a href="/bankapp/CheckStatus">Check transaction</a></li>
+		<li><a href="/bankapp/withdrawMoney.html">Withdraw Money</a></li>
+		<li><a href="/bankapp/applyLoan.html">Apply for Loan</a></li>
+        <li><a href="/bankapp/viewStatement.html">View statement</a></li>
         <li><a href="/bankapp/CheckBalance">Check balance</a></li>
       </ul>
     
     </div>
   </div>
+
+	
 
 </body>
 </html>
