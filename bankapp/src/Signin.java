@@ -15,7 +15,7 @@ public class Signin extends HttpServlet {
 		String inputUsername = req.getParameter("cusUserName");
 		String inputPassword = req.getParameter("cusPassword");
 		Model model = new Model();
-		model.createHibernateSession();
+		model.connectCustomer();
 		Customer loginCusotmer = new Customer(inputUsername, inputPassword);
 		model.setLoginCustomer(loginCusotmer);
 		int verifyResult = model.verifyLogin();

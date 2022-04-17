@@ -23,13 +23,13 @@ public class ChangePassword extends HttpServlet {
 		} else {
 
 			Model model = new Model();
-			model.createHibernateSession();
+			model.connectCustomer();
 			Customer loginCustomer = new Customer(username, inputOldPassword);
 			model.setLoginCustomer(loginCustomer);
 			int oldPasswordResult = model.verifyLogin();
 
 			if (oldPasswordResult == 1) {
-				model.createHibernateSession();
+				model.connectCustomer();
 				int passwordUpdateResult = model.changePassword(inputNewPassword);
 				if (passwordUpdateResult == 0) {
 					System.out.println("new password is the same as the old password");

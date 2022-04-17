@@ -19,7 +19,7 @@ public class Register extends HttpServlet {
 
 		Customer newCustomer = new Customer(cusName, cusUserName, cusPassword);
 		Model model = new Model();
-		model.createHibernateSession();
+		model.connectCustomer();
 		boolean result = model.registerCustomer(newCustomer);
 
 		if (result) {

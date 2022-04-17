@@ -8,7 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+  <div class="container loanApprove">
+    <form action="/bankapp/customerLoginSuccess.jsp">
+		<input type="submit" value="Back to Home">
+	</form>
+  </div>
 <div align="center">
 	<h1> Your balance:</h1>
 	<div  class="container checkbalance">
