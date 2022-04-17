@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class CheckBalance
  */
 public class CheckBalance extends HttpServlet {
-	
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(); //use session from signin/register
@@ -24,7 +23,5 @@ public class CheckBalance extends HttpServlet {
 		session.setAttribute("cusBalance", cusBalance);
 		resp.sendRedirect("/bankapp/displayBalance.jsp");
 	}
-		
-	
 
 }
