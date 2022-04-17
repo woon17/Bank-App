@@ -49,18 +49,29 @@ public class Model {
 	}
 
 	public int verifyLogin() {
-		customerSession.beginTransaction();
-		Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
-		customerSession.getTransaction().commit();
-		if (cus == null) {
-			return -1;// username is not existing in database
-		} else {
-			if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
-				return 0;// password not match
+		try {
+			System.out.println("0");
+			customerSession.beginTransaction();
+			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
+			customerSession.getTransaction().commit();
+			System.out.println("1");
+			if (cus == null) {
+				System.out.println("2");
+				return -1;// username is not existing in database
 			} else {
-				return 1;// both matched
+				System.out.println("3");
+				if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
+					return 0;// password not match
+				} else {
+					return 1;// both matched
+				}
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("verifyLogin catch block");
+			return 0;
 		}
+		
 	}
 
 	public int changePassword(String inputNewPassword) {

@@ -25,7 +25,7 @@ h1{
 }
 
 .indexfile input{
-  padding: 10px 50px;
+  padding: 10px;
 }
 
 .indexfile #login{
@@ -56,9 +56,16 @@ h1{
   margin:0;
 }
 
+#wecomeMessage{
+	padding-left: 80px;
+}
 .loginSuccess button{
   padding:10px 20px;
   width:100%;
+}
+
+.loginSuccess>div>h3{
+	padding-left: 40px
 }
 
 .loginSuccess button:hover{
@@ -68,11 +75,16 @@ h1{
   
 }
 
+.loginSuccess ul {
+    list-style-type: none;
+}
+
 
 .changepassword{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 56px;
  
 }
 .changepassword table{
@@ -84,7 +96,7 @@ h1{
   float:right;
 }
 .changepassword #button {
-  text-align: center;
+  text-align: right;
 }
 .changepassword  table{
   border: 1px solid black
