@@ -16,7 +16,7 @@ public class Model {
 		this.loginCustomer = loginCustomer;
 	}
 
-	//TODO: Refactor this method and remove print statements
+	// TODO: Refactor this method and remove print statements
 	public void createHibernateSession() {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
@@ -24,8 +24,8 @@ public class Model {
 		session = factory.getCurrentSession();
 		System.out.println("Connected to Pf....");
 	}
-	
-	//For Transaction Entity
+
+	// For Transaction Entity
 	public void connectTransaction() {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Transaction.class)
 				.buildSessionFactory();
@@ -43,7 +43,7 @@ public class Model {
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -76,7 +76,16 @@ public class Model {
 		}
 
 	}
-	
+
+	public int checkBalance(String cusUserName) {
+
+		session.beginTransaction();
+		Customer cus = (Customer) session.get(Customer.class, cusUserName);
+		session.getTransaction().commit();
+		return cus.getCusBalance();
+
+	}
+
 	public int withdrawMoney(String user, String amount) {
 		try {
 			createHibernateSession();
@@ -115,7 +124,7 @@ public class Model {
 			return -2;
 		}
 	}
-	
+
 	public int applyLoan(String user, String amount) {
 		try {
 			int loanAmt = Integer.parseInt(amount);
@@ -137,13 +146,13 @@ public class Model {
 			session.getTransaction().commit();
 			transactionSession.getTransaction().commit();
 			System.out.println("Loan Application Submitted successfully.");
-			
+
 			return 1;
 		} catch (Exception e) {
 			return 0;
 		}
 	}
-	
+
 	public List<Transaction> viewStatement(String startDate, String endDate, String user) {
 		List<Transaction> transactionList = null;
 		try {
@@ -165,7 +174,7 @@ public class Model {
 		}
 		return transactionList;
 	}
-	
+
 	/*
 	 * -------------------------- Date Helper Methods -----------------------------
 	 */

@@ -1,0 +1,138 @@
+@charset "ISO-8859-1";
+body {
+  background-image: url("https://images.pexels.com/photos/867092/pexels-photo-867092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;  
+}
+
+h1{
+  color:white;
+  text-align:center
+}
+
+.indexfile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+}
+.indexfile table {
+  border: 1px solid black;
+  padding: 100px;
+  background-color: white;
+}
+
+.indexfile input{
+  padding: 10px 50px;
+}
+
+.indexfile #login{
+  padding: 10px 60px;
+  
+}
+.indexfile #register{
+  padding: 10px 55px;
+  
+}
+
+.indexfile .buttons{
+  background-color: red;
+  color:white;
+  font-weight:600;
+  margin-left:15%;
+  border-radius: 25px; 
+}
+
+.indexfile .errorBox input{
+  outline: 3px solid red
+}
+
+.loginSuccess{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0;
+}
+
+
+.changepassword{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+.changepassword table{
+  background-color: white;
+  padding:50px 30px;
+}
+
+.logout{
+  float:right;
+}
+.changepassword #button {
+  text-align: center;
+}
+.changepassword  table{
+  border: 1px solid black
+  
+  
+}
+.changepassword #errorBox input{
+	outline: thick solid red
+	
+}
+
+.registerForm{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+  
+}
+
+.registerForm table{
+  background-color: white;
+  padding:50px 30px;
+}
+
+.registerForm #register{
+  text-align: center;
+  background-color: red;
+  padding:10px 30px;
+  color:white;
+  font-weight:600;
+  margin-left:15%;
+  border-radius: 25px;
+}
+
+.errorTitle{
+  color:red;
+  text-align:center;
+  text-decoration: underline;
+}
+
+.registerForm .errorBox input{
+	outline: 3px solid red
+	
+}
+
+.checkbalance{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+}
+
+.checkbalance div {
+  width: 300px;
+  height: 100px;  
+  padding: 30px;
+  background-color: white;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 45px;
+  font-weight: 600;
+  
+}
