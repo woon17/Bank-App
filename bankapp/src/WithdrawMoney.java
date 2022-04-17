@@ -25,6 +25,7 @@ public class WithdrawMoney extends HttpServlet {
 		}else {
 			session.setAttribute("balance", status);
 			response.sendRedirect("/bankapp/withdrawMoneySuccess.jsp");
+			return;
 		}
 	}
 

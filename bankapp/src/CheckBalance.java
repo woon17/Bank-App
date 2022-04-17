@@ -17,7 +17,7 @@ public class CheckBalance extends HttpServlet {
 		String cusUserName = (String) session.getAttribute("cusUserName");
 		
 		Model m = new Model();
-		m.createHibernateSession();
+		m.connectCustomer();
 		int cusBalance = m.checkBalance(cusUserName);
 		System.out.println(cusBalance);
 		session.setAttribute("cusBalance", cusBalance);

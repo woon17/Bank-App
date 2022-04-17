@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class Model {
-	private Session session;
+	private Session customerSession;
 	private Session transactionSession;
 	private Customer loginCustomer;
 
@@ -16,13 +16,12 @@ public class Model {
 		this.loginCustomer = loginCustomer;
 	}
 
-	// TODO: Refactor this method and remove print statements
-	public void createHibernateSession() {
+	// For Customer Entity
+	public void connectCustomer() {
 		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
 				.buildSessionFactory();
+		customerSession = factory.getCurrentSession();
 		System.out.println("connection to database is established");
-		session = factory.getCurrentSession();
-		System.out.println("Connected to Pf....");
 	}
 
 	// For Transaction Entity
@@ -36,9 +35,10 @@ public class Model {
 	// create
 	public boolean registerCustomer(Customer c) {
 		try {
-			session.beginTransaction();
-			session.save(c);
-			session.getTransaction().commit();
+			System.out.println("registerCustomer: \n" + c);
+			customerSession.beginTransaction();
+			customerSession.save(c);
+			customerSession.getTransaction().commit();
 			System.out.println("model.registerCustomer success...");
 			return true;
 		} catch (Exception e) {
@@ -49,59 +49,70 @@ public class Model {
 	}
 
 	public int verifyLogin() {
-		session.beginTransaction();
-		Customer cus = (Customer) session.get(Customer.class, this.loginCustomer.getCusUserName());
-		session.getTransaction().commit();
-		if (cus == null) {
-			return -1;// username is not existing in database
-		} else {
-			if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
-				return 0;// password not match
+		try {
+			System.out.println("0");
+			customerSession.beginTransaction();
+			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
+			customerSession.getTransaction().commit();
+			System.out.println("1");
+			if (cus == null) {
+				System.out.println("2");
+				return -1;// username is not existing in database
 			} else {
-				return 1;// both matched
+				System.out.println("3");
+				if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
+					return 0;// password not match
+				} else {
+					return 1;// both matched
+				}
 			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("verifyLogin catch block");
+			return 0;
 		}
+		
 	}
 
 	public int changePassword(String inputNewPassword) {
 		if (this.loginCustomer.getCusPassword().equals(inputNewPassword)) {
 			return 0;// new password is the same as old password
 		} else {
-			session.beginTransaction();
-			Customer cus = (Customer) session.get(Customer.class, this.loginCustomer.getCusUserName());
+			customerSession.beginTransaction();
+			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
 			cus.setCusPassword(inputNewPassword);
-			session.update(cus);
-			session.getTransaction().commit();
+			customerSession.update(cus);
+			customerSession.getTransaction().commit();
 			return 1;// new password updated
 		}
 
 	}
 
 	public int checkBalance(String cusUserName) {
-
-		session.beginTransaction();
-		Customer cus = (Customer) session.get(Customer.class, cusUserName);
-		session.getTransaction().commit();
+		System.out.println("cusUserName: "+cusUserName);
+		customerSession.beginTransaction();
+		Customer cus = (Customer) customerSession.get(Customer.class, cusUserName);
+		customerSession.getTransaction().commit();
 		return cus.getCusBalance();
 
 	}
 
 	public int withdrawMoney(String user, String amount) {
 		try {
-			createHibernateSession();
-			session.beginTransaction();
-			List<Customer> customerList = session.createQuery("FROM Customer c WHERE c.cusUserName = :user")
+			connectCustomer();
+			customerSession.beginTransaction();
+			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
 
 			int retrievedAmt = customerList.get(0).getCusBalance();
 			int withdrawAmt = Integer.parseInt(amount);
 
-			if (retrievedAmt > withdrawAmt) {
+			if (retrievedAmt >= withdrawAmt) {
 				int finalAmt = retrievedAmt - withdrawAmt;
 
 				// Update CUSTOMER DB Balance
 				customerList.get(0).setCusBalance(finalAmt);
-				session.update(customerList.get(0));
+				customerSession.update(customerList.get(0));
 				System.out.println("Updated CUSTOMER DB!");
 
 				// Insert Transaction Record to DB
@@ -112,7 +123,7 @@ public class Model {
 				System.out.println("Updated TRANSACTION DB!");
 
 				// Once both tables done, commit all transactions
-				session.getTransaction().commit();
+				customerSession.getTransaction().commit();
 				transactionSession.getTransaction().commit();
 				System.out.println("Withdrawal Successful.");
 				return finalAmt;
@@ -134,16 +145,16 @@ public class Model {
 			transactionSession.save(t);
 			System.out.println("Updated TRANSACTION DB!");
 
-			createHibernateSession();
-			session.beginTransaction();
-			List<Customer> customerList = session.createQuery("FROM Customer c WHERE c.cusUserName = :user")
+			connectCustomer();
+			customerSession.beginTransaction();
+			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
 			int retrievedAmt = customerList.get(0).getCusBalance();
 			customerList.get(0).setCusBalance(loanAmt + retrievedAmt);
-			session.update(customerList.get(0));
+			customerSession.update(customerList.get(0));
 			System.out.println("Updated CUSTOMER DB!");
 
-			session.getTransaction().commit();
+			customerSession.getTransaction().commit();
 			transactionSession.getTransaction().commit();
 			System.out.println("Loan Application Submitted successfully.");
 
