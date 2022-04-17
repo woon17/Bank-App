@@ -13,7 +13,7 @@
 	<h1> Your balance:</h1>
 	<div  class="container checkbalance">
 		<div>
-		<%
+		$<%
 		// println in broswer, in client machine. not in console
 		HttpSession ses = request.getSession();
 		out.println(ses.getAttribute("cusBalance"));

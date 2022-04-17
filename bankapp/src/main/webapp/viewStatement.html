@@ -2,23 +2,29 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
 <title>View Statement Page</title>
 </head>
 <body>
+  <h1>View Transaction Statement</h1>
+  <div class="container viewStatement">
 	<form action="/bankapp/ViewStatement">
 		<table>
 			<tr>
 				<td>From:</td>
-				<td><input type="date" name="start_date" required></td>
+				<td class="calendar"><input type="date" name="start_date" required></td>
 			</tr>
 			<tr>
 				<td>To:</td>
-				<td><input type="date" name="end_date" required></td>
+				<td class="calendar"><input type="date" name="end_date" required></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="View"></td>
+              
+              <td></td>
+				<td ><input class="view" type="submit" value="View"></td>
 			</tr>
 		</table>
 	</form>
+  </div>
 </body>
 </html>

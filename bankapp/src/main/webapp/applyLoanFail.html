@@ -2,12 +2,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
+
 <title>Apply Loan Fail Page</title>
 </head>
 <body>
-	<h1>Error occurred while applying for loan! Please try again later.</h1>
-	<form action="/bankapp/customerLoginSuccess.jsp">
-		<input type="submit" value="Back to Home">
+  <h1>Error occurred while applying for loan! Please try again later.</h1>
+  <div class="container applyLoan">
+    <div class="row">
+      <form action="/bankapp/customerLoginSuccess.jsp">
+		<input id ="applyloanfail" type="submit" value="Back to Home">
 	</form>
+    </div>
+    
+  </div>
+	
 </body>
 </html>
