@@ -2,10 +2,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
 <title>Apply Loan Page</title>
 </head>
 <body>
-<form action="/bankapp/ApplyLoan">
+  <h1>Loan Application</h1>
+  <div class="container applyLoan">
+    <form action="/bankapp/ApplyLoan">
 		<table>
 			<tr>
 				<td>Enter Loan Amount:</td>
@@ -15,9 +18,13 @@
 				<td><small>Min. withdrawal amt: $1</small></td>
 			</tr>
 			<tr>
+              <td></td>
 				<td><input type="submit" value="Loan"></td>
 			</tr>
 		</table>
 	</form>
+    
+  </div>
+
 </body>
 </html>

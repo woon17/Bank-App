@@ -2,22 +2,29 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link type="text/css" rel="stylesheet" href="/bankapp/main.css">
 <title>Withdraw Money Page</title>
 </head>
 <body>
-	<form action="/bankapp/WithdrawMoney">
+  <h1>How much would u like to withdraw?</h1>
+  <div class="container withdraw">
+    <form action="/bankapp/WithdrawMoney">
 		<table>
 			<tr>
-				<td>Enter Amount of Money to Withdraw:</td>
+				<td>Enter Amount:</td>
 				<td><input type="number" min="1" name="amount" required></td>
 			</tr>
 			<tr>
 				<td><small>Min. withdrawal amt: $1</small></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="Withdraw"></td>
+              <td></td>
+				<td><input  class="withdrawButton" type="submit" value="Withdraw"></td>
 			</tr>
 		</table>
 	</form>
+    
+  </div>
+	
 </body>
 </html>

@@ -56,6 +56,18 @@ h1{
   margin:0;
 }
 
+.loginSuccess button{
+  padding:10px 20px;
+  width:100%;
+}
+
+.loginSuccess button:hover{
+  padding:15px 30px;
+  width:100%;
+  background-color:lightgrey;
+  
+}
+
 
 .changepassword{
   display: flex;
@@ -134,5 +146,81 @@ h1{
   text-align: center;
   font-size: 45px;
   font-weight: 600;
+  
+}
+
+.applyLoan{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+}
+
+.applyLoan table{
+  background-color: white;
+  padding:50px 30px;
+}
+
+.loanApprove{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+  
+}
+
+.viewStatement{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+}
+
+.viewStatement table{
+   background-color: white;
+  padding:50px 30px;
+}
+
+.viewStatement .calendar input{
+  padding: 30px;
+}
+
+.viewStatement .view{
+  margin-left:50px;
+  padding:10px;
+  width: 50px;
+  background-color: green;
+  color:white;
+  font-weight:600;  
+}
+
+.withdraw{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
+}
+
+.withdraw table{
+  background-color: white;
+  padding:50px 30px;
+
+}
+
+.withdraw .withdrawButton{
+  padding:10px;
+  width: 100px;
+  background-color: green;
+  color:white;
+  font-weight:600; 
+  text-align: center;
+  
+}
+
+.withdrawError{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  margin:0 auto;
   
 }
