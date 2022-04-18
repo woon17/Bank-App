@@ -1,6 +1,6 @@
 # Bank-App
 
-The Bank App is an application where customers can perform banking activities on a regular basis 24/7. It consists of the front-end, which is built using html,css and jsp files where users interact with. The application interacts with the Oracle database via Java Servlets, which is mainly used for logic processing purposes such as performing CRUD operations. Main features of the application include registering and logging in of account, withdrawal of money, checking balance, applying for loan and viewing of statements. 
+The Bank App is an application where customers can perform banking activities on a regular basis 24/7. It consists of the front-end, which is built using html,css and jsp files where users interact with. The application interacts with the Oracle database via Java Servlets, which is mainly used for logic processing purposes such as performing CRUD operations. Main features of the application include registering and logging in of account, withdrawal of money, checking balance, applying for loan and viewing of statements.
 
 ## Table of Contents
 
@@ -23,12 +23,6 @@ The Bank App is an application where customers can perform banking activities on
 			- [Validation:](#validation)
 		- [Feature 7: Withdrawal (CREDIT)](#feature-7-withdrawal-credit)
 			- [Validation:](#validation-1)
-	- [Contributing](#contributing)
-	- [Versioning](#versioning)
-	- [Authors](#authors)
-			- [Madhur Taneja](#madhur-taneja)
-	- [License](#license)
-	- [Acknowledgments](#acknowledgments)
 
 ### Tools Required
 
@@ -61,32 +55,36 @@ All tools required go here. You would require the following tools to develop and
     @Table(name = "CUSTOMERDB")
     ```
 
-  - @Id annotation marks the identifier for this entity.
+  - @Id annotation marks the identifier for this entity
 
-  ```
-  @Id // primary key
-  ```
+	```
+	@Id // primary key
+	```
 
   - @Column annotation specifies the details of the column for this property or field. If @Column annotation is not specified, property name will be used as the column name by default.
 
-  ```
-  @Column(name = "USERNAME ")
-  private String cusUserName;
-  ```
+	```
+	@Column(name = "USERNAME ")
+	private String cusUserName;
+	```
 
-  ```
-  @Column(name = "NAME")
-  private String cusName;
-  ```
+	```
+	@Column(name = "NAME")
+	private String cusName;
+	```
 
 ### Database setup
 
 - CUSTOMERDB
-  - | NAME: varchar  | topic                          |
-    | -------------- | ------------------------------------ |
-    | _Java Section_ | `Scanner Class`             |
-	
+
+  - | NAME: `varchar` | USERNAME (p_key): `varchar` | PASSWORD: `varchar` | BALANCE: `number` |
+    | :-------------: | :-------------------------: | :-----------------: | :---------------: |
+    |    WEN SHUFA    |            shufa            |         pwd         |       1000        |
+
 - TRANSACTIONDB
+  - | TID: `number` (p_key) | USERNAME:(F_Key) `varchar` | TX_DATE: `date` | TYPE: `varchar` | AMOUNT: `number` | NOTES: `varchar` | STATUS: varchar |
+    | :-------------------: | :------------------------: | :-------------: | :-------------: | :--------------: | :--------------: | :-------------: |
+    |           1           |           shufa            |   14-APR-2022   |      DEBIT      |       1000       |   LOAN REQUEST   |    APPROVED     |
 
 ### Feature 1: Registration
 
@@ -142,52 +140,5 @@ All tools required go here. You would require the following tools to develop and
 ### Feature 7: Withdrawal (CREDIT)
 
 #### Validation:
-
 - Check withdraw amount less than bank balance
 - Handle negative values and zero values
-
-## Contributing
-
-
-Mention what you expect from the people who want to contribute
-
-We'd love to have your helping hand on `Project Title`! See [CONTRIBUTING.md] for more information on what we're looking for and how to get started.
-
-## Versioning
-
-If your project has multiple versions, include information about it here.
-
-For the available versions, see the [tags on this repository][tags]
-
-## Authors
-
-#### Madhur Taneja
-
-- [GitHub]
-- [LinkedIn]
-
-You can also see the complete [list of contributors][contributors] who participated in this project.
-
-## License
-
-`Project Title` is open source software [licensed as MIT][license].
-
-## Acknowledgments
-
-This section can also be called as `Resources` or `References`
-
-- Code Honor if someone's work was referred to
-- Tutorials followed
-- Articles that helped
-- Inspiration
-- etc
-
-[//]: # "HyperLinks"
-[github repository]: https://github.com/madhur-taneja/README-Template
-[github pages]: https://madhur-taneja.github.io/README-Template
-[contributing.md]: https://github.com/madhur-taneja/README-template/blob/master/CONTRIBUTING.md
-[tags]: https://github.com/madhur-taneja/README-template/tags
-[github]: https://github.com/madhur-taneja
-[linkedin]: https://www.linkedin.com/in/madhur-taneja/
-[contributors]: https://github.com/madhur-taneja/README-template/contributors
-[license]: https://github.com/madhur-taneja/README-template/blob/master/LICENSE.md
