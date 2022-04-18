@@ -23,11 +23,6 @@ The Bank App is an application where customers can perform banking activities on
       - [Validation:](#validation)
     - [Feature 7: Withdrawal (CREDIT)](#feature-7-withdrawal-credit)
       - [Validation:](#validation-1)
-  - [Contributing](#contributing)
-  - [Versioning](#versioning)
-  - [Authors](#authors) - [Madhur Taneja](#madhur-taneja)
-  - [License](#license)
-  - [Acknowledgments](#acknowledgments)
 
 ### Tools Required
 
@@ -60,7 +55,7 @@ All tools required go here. You would require the following tools to develop and
     @Table(name = "CUSTOMERDB")
     ```
 
-  - @Id annotation marks the identifier for this entity.
+  - @Id annotation marks the identifier for this entity
 
   ```
   @Id // primary key
@@ -81,10 +76,15 @@ All tools required go here. You would require the following tools to develop and
 ### Database setup
 
 - CUSTOMERDB
-  - | NAME: varchar  | topic           |
-    | -------------- | --------------- |
-    | _Java Section_ | `Scanner Class` |
+
+  - | NAME: `varchar` | USERNAME (p_key): `varchar` | PASSWORD: `varchar` | BALANCE: `number` |
+    | :-------------: | :-------------------------: | :-----------------: | :---------------: |
+    |    WEN SHUFA    |            shufa            |         pwd         |       1000        |
+
 - TRANSACTIONDB
+  - | TID: `number` (p_key) | USERNAME:(F_Key) `varchar` | TX_DATE: `date` | TYPE: `varchar` | AMOUNT: `number` | NOTES: `varchar` | STATUS: `varchar` |
+    | :-------------------: | :------------------------: | :-------------: | :-------------: | :--------------: | :--------------: | :---------------: |
+    |           1           |           shufa            |   14-APR-2022   |      DEBIT      |       1000       |   LOAN REQUEST   |     APPROVED      |
 
 ### Feature 1: Registration
 
