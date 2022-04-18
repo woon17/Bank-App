@@ -117,7 +117,7 @@ public class Model {
 
 				// Insert Transaction Record to DB
 				connectTransaction();
-				Transaction t = new Transaction(user, getCurrentDate(), "DEBIT", withdrawAmt, "WITHDRAWAL", "APPROVED");
+				Transaction t = new Transaction(user, getCurrentDate(), "CREDIT", withdrawAmt, "WITHDRAWAL", "APPROVED");
 				transactionSession.beginTransaction();
 				transactionSession.save(t);
 				System.out.println("Updated TRANSACTION DB!");
@@ -140,7 +140,7 @@ public class Model {
 		try {
 			int loanAmt = Integer.parseInt(amount);
 			connectTransaction();
-			Transaction t = new Transaction(user, getCurrentDate(), "CREDIT", loanAmt, "LOAN REQUEST", "APPROVED");
+			Transaction t = new Transaction(user, getCurrentDate(), "DEBIT", loanAmt, "LOAN REQUEST", "APPROVED");
 			transactionSession.beginTransaction();
 			transactionSession.save(t);
 			System.out.println("Updated TRANSACTION DB!");
