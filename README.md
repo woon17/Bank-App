@@ -1,119 +1,153 @@
 # Bank-App
-# Project Title
 
-![Current Version](https://img.shields.io/badge/version-v0.1-blue)
-![GitHub contributors](https://img.shields.io/github/contributors/madhur-taneja/README-Template)
-![GitHub stars](https://img.shields.io/github/stars/madhur-taneja/README-Template?style=social)
-![GitHub forks](https://img.shields.io/github/forks/madhur-taneja/README-Template?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/madhurtaneja2?style=social)
-
-A template for README files that can be used for your future projects. A small description about the project, shields as well as the link to your repo.
-
-Open and view the Project using the `.zip` file provided or at my [GitHub Repository]
-
-The project is also hosted on [GitHub Pages]
+The Bank App is an application where customers can perform banking activities on a regular basis 24/7. It consists of the front-end, which is built using html,css and jsp files where users interact with. The application interacts with the Oracle database via Java Servlets, which is mainly used for logic processing purposes such as performing CRUD operations. Main features of the application include registering and logging in of account, withdrawal of money, checking balance, applying for loan and viewing of statements. 
 
 ## Table of Contents
-- [Getting Started](#getting-started)
-	- [Tools Required](#tools-required)
-	- [Installation](#installation)
-- [Development](#development)
-    - [Part 1: Heading](#part-1-heading)
-	  - [Step 1: Subheading](#step-1-subheading)
-	  - [Step 2: Subheading](#step-2-subheading)
-	- [Part 2: Heading](#part-2-heading)
-- [Running the App](#running-the-app)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [Authors](#authors)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
 
-## Getting Started
-
-The project might have multiple branches: `master`, `development`, etc. which can be explained here
-
-* `master` contains aggregate code of all branches
-* `development` contains code under development
-
-Other details that need to be given while starting out with the project can be provided in this section. A project structure like below can also be included for the big projects:
-
-```
-	project-title
-	├── README.md
-	├── package.json
-	├── .gitignore
-	├── public
-	│   ├── favicon.ico
-	│   ├── index.html
-	│   └── manifest.json
-	└── src
-		├── App.css
-		├── App.js
-		├── App.test.js
-		├── index.css
-		├── index.js
-		├── logo.svg
-		└── serviceWorker.js
-		└── setupTests.js
-```
+- [Bank-App](#bank-app)
+	- [Table of Contents](#table-of-contents)
+		- [Tools Required](#tools-required)
+		- [MVC Design pattern:](#mvc-design-pattern)
+		- [Frameworks:](#frameworks)
+		- [Database setup](#database-setup)
+		- [Feature 1: Registration](#feature-1-registration)
+			- [Failure condition:](#failure-condition)
+		- [Feature 2: Login](#feature-2-login)
+			- [Failure condition:](#failure-condition-1)
+		- [Feature 3: Change password](#feature-3-change-password)
+			- [Failure condition:](#failure-condition-2)
+		- [Feature 4: Check Account Balance](#feature-4-check-account-balance)
+		- [Feature 5: View Transaction History](#feature-5-view-transaction-history)
+			- [Failure condition:](#failure-condition-3)
+		- [Feature 6: Apply Loan: (DEBIT)](#feature-6-apply-loan-debit)
+			- [Validation:](#validation)
+		- [Feature 7: Withdrawal (CREDIT)](#feature-7-withdrawal-credit)
+			- [Validation:](#validation-1)
+	- [Contributing](#contributing)
+	- [Versioning](#versioning)
+	- [Authors](#authors)
+			- [Madhur Taneja](#madhur-taneja)
+	- [License](#license)
+	- [Acknowledgments](#acknowledgments)
 
 ### Tools Required
 
 All tools required go here. You would require the following tools to develop and run the project:
 
-* A text editor or an IDE (like IntelliJ)
-* Mention the other tools required for the project 
+- A text editor or an IDE (like Eclipse)
+- Tomcat v7.0 Server
 
-### Installation
+### MVC Design pattern:
 
-All installation steps go here.
+- The Model defines the business layer of the application, the Controller manages the flow of the application, and the View defines the presentation layer of the application.
 
-* Installing a particular tool
-  * Steps to complete it
-  
-* Installing another tool
+### Frameworks:
 
-## Development
+- Hibernate
+  - used Hibernate Java-based configuration without using hibernate.cfg.xml to connect oracle database.
+  - Reason to choose: Hibernate provides an implementation of the Java Persistence API, that makes it a great choice as an ORM tool with benefits of loose coupling.
+- Annotation:
 
-This section is completely optional. For big projects, the developement strategies are not discussed. But for small projects, you can give some insight to people. It has 2 benefits in my opinion:
+  - Eliminate the need to create mapping (hbm) file. Here, hibernate annotations are used to provide the meta data.
+  - @Entity annotation marks this class as an entity.
 
-1. It's a way to give back to the community. People get to learn from you and appreciate your work
-2. You can refer the README in future as a quick refresher before an interview or for an old project to check if it can help you in your currect work
+    ```
+    @Entity
+    ```
 
-### Part 1: Heading
+  - @Table annotation specifies the table name where data of this entity is to be persisted. If you don't use @Table annotation, hibernate will use the class name as the table name by default.
 
-#### Step 1: Subheading
+    ```
+    @Table(name = "CUSTOMERDB")
+    ```
 
-* Mention the steps here
-  * You can also have nested steps to break a step into small tasks
-  
-#### Step 2: Subheading
+  - @Id annotation marks the identifier for this entity.
 
-* Mention the steps here.
-  * You can also have nested steps to break a step into small tasks
-
-For details now how everything has been implemented, refer the source code
-
-### Part 2: Heading
-
-* Mention the steps here
-
-## Running the App
-
-Steps and commands for running the app are to be included here
-
-* Example steps:
   ```
-    Example command
+  @Id // primary key
   ```
 
-## Deployment
+  - @Column annotation specifies the details of the column for this property or field. If @Column annotation is not specified, property name will be used as the column name by default.
 
-This section is completely optional. Add additional notes about how to deploy this on a live system
+  ```
+  @Column(name = "USERNAME ")
+  private String cusUserName;
+  ```
+
+  ```
+  @Column(name = "NAME")
+  private String cusName;
+  ```
+
+### Database setup
+
+- CUSTOMERDB
+  - | NAME: varchar  | topic                          |
+    | -------------- | ------------------------------------ |
+    | _Java Section_ | `Scanner Class`             |
+	
+- TRANSACTIONDB
+
+### Feature 1: Registration
+
+> register a new customer and saved to CUSTOMERDB
+
+#### Failure condition:
+
+- Username exist
+- Confirm password not match
+- Empty fields
+
+### Feature 2: Login
+
+> customer login to choose further action
+
+#### Failure condition:
+
+- Non-existing username
+- Invalid username
+- Invalid password
+
+### Feature 3: Change password
+
+> customer can change password after login successfully
+
+#### Failure condition:
+
+- Confirm New password not matched
+- Old password is wrong
+- Old password and new password are the same
+
+### Feature 4: Check Account Balance
+
+>
+
+### Feature 5: View Transaction History
+
+> Show Transaction History within the selected Start/End, Date range (inclusive), including “Empty” Transaction History
+
+#### Failure condition:
+
+- Invalid Date Range (E.g. From 29/4/2022 to 1/4/2022)
+
+### Feature 6: Apply Loan: (DEBIT)
+
+> Show Transaction History within the selected Start/End, Date range (inclusive), including “Empty” Transaction History
+
+#### Validation:
+
+- Enter $1 and above as valid loan amount
+- Handle negative & zero values
+
+### Feature 7: Withdrawal (CREDIT)
+
+#### Validation:
+
+- Check withdraw amount less than bank balance
+- Handle negative values and zero values
 
 ## Contributing
+
 
 Mention what you expect from the people who want to contribute
 
@@ -121,15 +155,16 @@ We'd love to have your helping hand on `Project Title`! See [CONTRIBUTING.md] fo
 
 ## Versioning
 
-If your project has multiple versions, include information about it here. 
+If your project has multiple versions, include information about it here.
 
 For the available versions, see the [tags on this repository][tags]
 
 ## Authors
 
 #### Madhur Taneja
-* [GitHub]
-* [LinkedIn]
+
+- [GitHub]
+- [LinkedIn]
 
 You can also see the complete [list of contributors][contributors] who participated in this project.
 
@@ -141,21 +176,18 @@ You can also see the complete [list of contributors][contributors] who participa
 
 This section can also be called as `Resources` or `References`
 
-* Code Honor if someone's work was referred to
-* Tutorials followed
-* Articles that helped
-* Inspiration
-* etc
+- Code Honor if someone's work was referred to
+- Tutorials followed
+- Articles that helped
+- Inspiration
+- etc
 
-[//]: # (HyperLinks)
-
-[GitHub Repository]: https://github.com/madhur-taneja/README-Template
-[GitHub Pages]: https://madhur-taneja.github.io/README-Template
-[CONTRIBUTING.md]: https://github.com/madhur-taneja/README-template/blob/master/CONTRIBUTING.md
+[//]: # "HyperLinks"
+[github repository]: https://github.com/madhur-taneja/README-Template
+[github pages]: https://madhur-taneja.github.io/README-Template
+[contributing.md]: https://github.com/madhur-taneja/README-template/blob/master/CONTRIBUTING.md
 [tags]: https://github.com/madhur-taneja/README-template/tags
-
-[GitHub]: https://github.com/madhur-taneja
-[LinkedIn]: https://www.linkedin.com/in/madhur-taneja/
-
+[github]: https://github.com/madhur-taneja
+[linkedin]: https://www.linkedin.com/in/madhur-taneja/
 [contributors]: https://github.com/madhur-taneja/README-template/contributors
 [license]: https://github.com/madhur-taneja/README-template/blob/master/LICENSE.md
