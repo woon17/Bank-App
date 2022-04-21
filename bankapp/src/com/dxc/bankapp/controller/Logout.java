@@ -1,3 +1,4 @@
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class logout
+ * Servlet implementation class Logout
  */
 public class Logout extends HttpServlet {
 	@Override
@@ -16,5 +17,4 @@ public class Logout extends HttpServlet {
 		session.invalidate();
 		resp.sendRedirect("/bankapp/index.html");
 	}
-
 }

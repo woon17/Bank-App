@@ -1,4 +1,4 @@
-
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.dxc.bankapp.model.Model;
 
 /**
  * Servlet implementation class CheckBalance
@@ -19,9 +21,8 @@ public class CheckBalance extends HttpServlet {
 		Model m = new Model();
 		m.connectCustomer();
 		int cusBalance = m.checkBalance(cusUserName);
-		System.out.println(cusBalance);
 		session.setAttribute("cusBalance", cusBalance);
-		resp.sendRedirect("/bankapp/displayBalance.jsp");
+		resp.sendRedirect("/bankapp/checkBalanceView/displayBalance.jsp");
 	}
 
 }

@@ -1,3 +1,5 @@
+package com.dxc.bankapp.entity;
+
 import java.util.Date;
 
 import javax.persistence.Column;

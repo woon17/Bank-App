@@ -1,3 +1,5 @@
+package com.dxc.bankapp.model;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,6 +8,9 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import com.dxc.bankapp.entity.Customer;
+import com.dxc.bankapp.entity.Transaction;
 
 public class Model {
 	private Session customerSession;
@@ -35,7 +40,6 @@ public class Model {
 	// create
 	public boolean registerCustomer(Customer c) {
 		try {
-			System.out.println("registerCustomer: \n" + c);
 			customerSession.beginTransaction();
 			customerSession.save(c);
 			customerSession.getTransaction().commit();
@@ -50,16 +54,12 @@ public class Model {
 
 	public int verifyLogin() {
 		try {
-			System.out.println("0");
 			customerSession.beginTransaction();
 			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
 			customerSession.getTransaction().commit();
-			System.out.println("1");
 			if (cus == null) {
-				System.out.println("2");
 				return -1;// username is not existing in database
 			} else {
-				System.out.println("3");
 				if (!cus.getCusPassword().equals(this.loginCustomer.getCusPassword())) {
 					return 0;// password not match
 				} else {
@@ -68,7 +68,8 @@ public class Model {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println("verifyLogin catch block");
+			System.out.println("verifyLogin catch block, check database password");
+			e.printStackTrace();
 			return 0;
 		}
 		
@@ -89,7 +90,6 @@ public class Model {
 	}
 
 	public int checkBalance(String cusUserName) {
-		System.out.println("cusUserName: "+cusUserName);
 		customerSession.beginTransaction();
 		Customer cus = (Customer) customerSession.get(Customer.class, cusUserName);
 		customerSession.getTransaction().commit();

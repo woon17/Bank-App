@@ -1,4 +1,4 @@
-
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -10,14 +10,14 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet Filter implementation class RegisterFilter
+ * Servlet Filter implementation class ChangePasswordFilter
  */
-public class RegisterFilter implements Filter {
+public class ChangePasswordFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public RegisterFilter() {
+    public ChangePasswordFilter() {
         // TODO Auto-generated constructor stub
     }
 
@@ -31,18 +31,19 @@ public class RegisterFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		String inputPassword = request.getParameter("cusPassword");
-		String inputCfmPassword = request.getParameter("cfmCusPassword");
-		
-		if(!inputPassword.equals(inputCfmPassword)) {
-			
-		((HttpServletResponse) response).sendRedirect("/bankapp/registerPasswordNotMatch.html");
-		}else {
+		String inputNewPassword = request.getParameter("newPassword");
+		String inputCfmNewPassword = request.getParameter("cfmNewPassword");
+
+		if (!inputNewPassword.equals(inputCfmNewPassword)) {
+			((HttpServletResponse) response).sendRedirect("/bankapp/changePasswordView/newPasswordNotMatch.html");
+		} else {
 			// pass the request along the filter chain
-			chain.doFilter(request, response);		
+			chain.doFilter(request, response);
+
 		}
 	}
 

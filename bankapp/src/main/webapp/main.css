@@ -219,7 +219,8 @@ h1{
 
 }
 
-.withdraw .withdrawButton{
+.withdraw .withdrawButton,
+.applyLoan .loanButton{
   padding:10px;
   width: 100px;
   background-color: green;
@@ -229,10 +230,18 @@ h1{
   
 }
 
+
+
 .withdrawError{
-    display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin:0 auto;
   
+}
+
+a{
+
+  text-decoration: none;
+
 }

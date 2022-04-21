@@ -1,4 +1,4 @@
-
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,8 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dxc.bankapp.entity.Transaction;
+import com.dxc.bankapp.model.Model;
+
+/**
+ * Servlet implementation class ViewStatement
+ */
 public class ViewStatement extends HttpServlet {
-	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -44,4 +49,5 @@ public class ViewStatement extends HttpServlet {
 		}
 	}
 	
+
 }
