@@ -10,7 +10,7 @@
 <body>
 	<h1>Loan application successful and approved!</h1>
   <div class="container loanApprove">
-    <form action="/bankapp/customerLoginSuccess.jsp">
+    <form action="/bankapp/loginView/customerLoginSuccess.jsp">
 		<input type="submit" value="Back to Home">
 	</form>
   </div>

@@ -1,3 +1,4 @@
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -5,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.dxc.bankapp.entity.Customer;
+import com.dxc.bankapp.model.Model;
 
 /**
  * Servlet implementation class changePassword
@@ -16,8 +20,6 @@ public class ChangePassword extends HttpServlet {
 		String inputNewPassword = req.getParameter("newPassword");
 		HttpSession session = req.getSession();
 		String username = (String) session.getAttribute("cusUserName");
-		System.out.println(String.format("username: %s; input old password: %s; old password: %s", username,
-				inputNewPassword, inputOldPassword));
 		if (username == null) {
 			resp.sendRedirect("/bankapp/index.html");
 		} else {
@@ -33,14 +35,14 @@ public class ChangePassword extends HttpServlet {
 				int passwordUpdateResult = model.changePassword(inputNewPassword);
 				if (passwordUpdateResult == 0) {
 					System.out.println("new password is the same as the old password");
-					resp.sendRedirect("/bankapp/newPasswordInvalid.html");
+					resp.sendRedirect("/bankapp/changePasswordView/newPasswordInvalid.html");
 				} else {
 					System.out.println("new password updated successfully");
-					resp.sendRedirect("/bankapp/updatePasswordSuccess.jsp");
+					resp.sendRedirect("/bankapp/changePasswordView/updatePasswordSuccess.jsp");
 				}
 			} else if (oldPasswordResult == 0) {
 				System.out.println("old password in incorrect");
-				resp.sendRedirect("/bankapp/oldPasswordInvalid.html");
+				resp.sendRedirect("/bankapp/changePasswordView/oldPasswordInvalid.html");
 			}
 		}
 	}

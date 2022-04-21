@@ -11,7 +11,7 @@
 <h1>Withdrawal successful. Your balance is now $<%out.print(session.getAttribute("balance"));%>.</h1>
 
 	<div class="container withdrawError">
-		<form action="/bankapp/customerLoginSuccess.jsp">
+		<form action="/bankapp/loginView/customerLoginSuccess.jsp">
 			<input type="submit" value="Back to Home">
 		</form>
 	</div>

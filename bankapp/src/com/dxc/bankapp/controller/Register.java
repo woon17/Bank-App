@@ -1,14 +1,17 @@
+package com.dxc.bankapp.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.dxc.bankapp.entity.Customer;
+import com.dxc.bankapp.model.Model;
+
 /**
- * Servlet implementation class Singin
+ * Servlet implementation class Register
  */
 public class Register extends HttpServlet {
 	@Override
@@ -25,11 +28,10 @@ public class Register extends HttpServlet {
 		if (result) {
 			HttpSession session = req.getSession(true);// create a new session
 			session.setAttribute("cusUserName", cusUserName);
-			resp.sendRedirect("/bankapp/customerLoginSuccess.jsp");
+			resp.sendRedirect("/bankapp/loginView/customerLoginSuccess.jsp");
 		} else {
-			resp.sendRedirect("/bankapp/registerFail.html");
+			resp.sendRedirect("/bankapp/registerView/registerFail.html");
 		}
-		System.out.println("register servlet works");
 
 	}
 
