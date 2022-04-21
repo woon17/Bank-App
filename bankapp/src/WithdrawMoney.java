@@ -16,6 +16,7 @@ public class WithdrawMoney extends HttpServlet {
 		String username = (String) session.getAttribute("cusUserName");
 		
 		Model model = new Model();
+		model.connectCustomer();
 		int status = model.withdrawMoney(username, amount);
 		
 		if(status == -2) {

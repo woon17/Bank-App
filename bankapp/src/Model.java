@@ -9,7 +9,6 @@ import org.hibernate.cfg.Configuration;
 
 public class Model {
 	private Session customerSession;
-	private Session transactionSession;
 	private Customer loginCustomer;
 
 	public void setLoginCustomer(Customer loginCustomer) {
@@ -18,18 +17,12 @@ public class Model {
 
 	// For Customer Entity
 	public void connectCustomer() {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Customer.class)
+				.addAnnotatedClass(Transaction.class)
 				.buildSessionFactory();
 		customerSession = factory.getCurrentSession();
 		System.out.println("connection to database is established");
-	}
-
-	// For Transaction Entity
-	public void connectTransaction() {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Transaction.class)
-				.buildSessionFactory();
-		transactionSession = factory.getCurrentSession();
-		System.out.println("Connection established to Transaction database.");
 	}
 
 	// create
@@ -99,7 +92,7 @@ public class Model {
 
 	public int withdrawMoney(String user, String amount) {
 		try {
-			connectCustomer();
+//			connectCustomer();
 			customerSession.beginTransaction();
 			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
@@ -113,18 +106,16 @@ public class Model {
 				// Update CUSTOMER DB Balance
 				customerList.get(0).setCusBalance(finalAmt);
 				customerSession.update(customerList.get(0));
-				System.out.println("Updated CUSTOMER DB!");
+				System.out.println("Updating CUSTOMER DB!");
 
 				// Insert Transaction Record to DB
-				connectTransaction();
 				Transaction t = new Transaction(user, getCurrentDate(), "CREDIT", withdrawAmt, "WITHDRAWAL", "APPROVED");
-				transactionSession.beginTransaction();
-				transactionSession.save(t);
-				System.out.println("Updated TRANSACTION DB!");
+
+				customerSession.save(t);
+				System.out.println("Updating TRANSACTION DB!");
 
 				// Once both tables done, commit all transactions
 				customerSession.getTransaction().commit();
-				transactionSession.getTransaction().commit();
 				System.out.println("Withdrawal Successful.");
 				return finalAmt;
 			} else {
@@ -139,14 +130,12 @@ public class Model {
 	public int applyLoan(String user, String amount) {
 		try {
 			int loanAmt = Integer.parseInt(amount);
-			connectTransaction();
 			Transaction t = new Transaction(user, getCurrentDate(), "DEBIT", loanAmt, "LOAN REQUEST", "APPROVED");
-			transactionSession.beginTransaction();
-			transactionSession.save(t);
+			customerSession.beginTransaction();
+			customerSession.save(t);
 			System.out.println("Updated TRANSACTION DB!");
 
-			connectCustomer();
-			customerSession.beginTransaction();
+
 			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
 			int retrievedAmt = customerList.get(0).getCusBalance();
@@ -155,7 +144,6 @@ public class Model {
 			System.out.println("Updated CUSTOMER DB!");
 
 			customerSession.getTransaction().commit();
-			transactionSession.getTransaction().commit();
 			System.out.println("Loan Application Submitted successfully.");
 
 			return 1;
@@ -172,13 +160,12 @@ public class Model {
 			Date end_tx_date = sdf.parse(dateConvert(endDate));
 
 			if (start_tx_date.before(end_tx_date) || start_tx_date.equals(end_tx_date)) {
-				connectTransaction();
-				transactionSession.beginTransaction();
-				transactionList = transactionSession.createQuery(
+				customerSession.beginTransaction();
+				transactionList = customerSession.createQuery(
 						"FROM Transaction t WHERE t.tx_date >= :startDate AND t.tx_date <= :endDate AND t.username = :user")
 						.setParameter("startDate", start_tx_date).setParameter("endDate", end_tx_date)
 						.setParameter("user", user).list();
-				transactionSession.getTransaction().commit();
+				customerSession.getTransaction().commit();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
