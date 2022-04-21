@@ -28,6 +28,7 @@ public class ViewStatement extends HttpServlet {
 		String username = (String) session.getAttribute("cusUserName");
 		
 		Model model = new Model();
+		model.connectCustomer();
 		List<Transaction> transactionList = model.viewStatement(startDate, endDate, username);
 		PrintWriter pw = response.getWriter();
 		
