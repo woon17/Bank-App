@@ -30,25 +30,17 @@ public class ViewStatement extends HttpServlet {
 		Model model = new Model();
 		model.connectCustomer();
 		List<Transaction> transactionList = model.viewStatement(startDate, endDate, username);
-		PrintWriter pw = response.getWriter();
 		
 		if(transactionList == null) {
-			pw.write("Invalid Date range, please try again!");
+			response.sendRedirect("/bankapp/viewStatementView/viewStatementInvalidDate.html");
 		}else {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
 			if (!transactionList.isEmpty()) {
-				pw.write("----------------------------------------------------------------\n");
-				pw.write("Date \t\tNOTES \t\tTYPE \tAMOUNT \tSTATUS\n");
-				pw.write("----------------------------------------------------------------\n");
-				for(Transaction t : transactionList) {
-					pw.write(dateFormat.format(t.getTx_date()) + "\t" + t.getNotes() + "\t" + t.getType() + "\t" + t.getAmount() + "\t" + t.getStatus() + "\n");
-				}
-				pw.write("----------------------------------------------------------------\n");
+				session.setAttribute("data", transactionList);
+				response.sendRedirect("/bankapp/viewStatementView/viewStatementSuccess.jsp");
 			} else {
-				pw.write("There are no transaction records within the selected period.");
+				response.sendRedirect("/bankapp/viewStatementView/viewStatementNoTransaction.html");
 			}
 		}
 	}
-	
 
 }
