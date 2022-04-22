@@ -166,6 +166,14 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns 1 if apply Loan action is successful.
+	 * 
+	 * @param user   custormer's name
+	 * @param amount amount for loan
+	 * 
+	 * @return 1 if apply Loan action is successful
+	 */
 	public int applyLoan(String user, String amount) {
 		try {
 			int loanAmt = Integer.parseInt(amount);
@@ -190,6 +198,14 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns a list of transaction within the given period.
+	 * 
+	 * @param startDate the starting data of the period
+	 * @param endDate   the ending date of the period
+	 * 
+	 * @return a list of transaction within the given period
+	 */
 	public List<Transaction> viewStatement(String startDate, String endDate, String user) {
 		List<Transaction> transactionList = null;
 		try {
@@ -215,6 +231,11 @@ public class Model {
 	 * -------------------------- Date Helper Methods -----------------------------
 	 */
 
+	/**
+	 * Returns today's date.
+	 *
+	 * @return today's date
+	 */
 	public Date getCurrentDate() {
 		Date tx_date = null;
 		try {
@@ -228,6 +249,13 @@ public class Model {
 		return tx_date;
 	}
 
+	/**
+	 * Returns a date in dd/MMM/yyyy string format
+	 *
+	 * @param input input is a string format of date
+	 * 
+	 * @return a date in dd/MMM/yyyy string format
+	 */
 	public String dateConvert(String input) {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format2 = new SimpleDateFormat("dd/MMM/yyyy");
@@ -235,7 +263,6 @@ public class Model {
 		try {
 			date = format1.parse(input);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String dateString = format2.format(date);
