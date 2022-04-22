@@ -18,13 +18,14 @@
 <title>View Statement Page</title>
 </head>
 <body>
-	<div class="statement_header">
-		<h2 style="color: white">Transaction List</h2>
-		<form action="/bankapp/viewStatementView/viewStatement.html">
-			<input type="submit" value="Back">
-		</form>
-	</div>
-	<table class="table table-dark">
+<div class="table table-light ">
+    <form action="/bankapp/viewStatementView/viewStatement.html">
+		<button type="submit" class="btn btn-light" style="float:right">Back</button>
+	</form>
+  </div>
+  <h1 >Transaction List</h1>
+
+	<table class="table table-light">
 		<thead>
 			<tr>
 				<th scope="col">Date</th>
