@@ -1,3 +1,4 @@
+<%@page import="java.util.Iterator"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.dxc.bankapp.entity.Transaction"%>
@@ -12,20 +13,32 @@
 <title>View Statement Page</title>
 </head>
 <body>
-
-	<%
-	List<Transaction> tList = (List<Transaction>) session.getAttribute("data");
-	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
-	PrintWriter pw = response.getWriter();
-	pw.write("----------------------------------------------------------------\n");
-	pw.write("Date \t\tNOTES \t\tTYPE \tAMOUNT \tSTATUS\n");
-	pw.write("----------------------------------------------------------------\n");
-	for (Transaction t : tList) {
-		pw.write(dateFormat.format(t.getTx_date()) + "\t" + t.getNotes() + "\t" + t.getType() + "\t" + t.getAmount() + "\t"
-		+ t.getStatus() + "\n");
-	}
-	pw.write("----------------------------------------------------------------\n");
-	%>
-
+	<h2>Transaction List</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Date</th>
+				<th scope="col">Description</th>
+				<th scope="col">Type</th>
+				<th scope="col">Amount ($)</th>
+			</tr>
+		</thead>
+		<tbody>
+			<%
+			List<Transaction> tList = (List<Transaction>) session.getAttribute("data");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+			Iterator it = tList.iterator();
+			while (it.hasNext()) {
+				Transaction t = (Transaction) it.next();
+			%>
+			<tr>
+				<td><%=dateFormat.format(t.getTx_date())%></td>
+				<td><%=t.getNotes()%></td>
+				<td><%=t.getType()%></td>
+				<td><%=t.getAmount()%></td>
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
 </body>
 </html>
