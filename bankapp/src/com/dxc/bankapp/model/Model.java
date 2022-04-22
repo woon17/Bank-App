@@ -12,36 +12,28 @@ import com.dxc.bankapp.entity.Customer;
 import com.dxc.bankapp.entity.Transaction;
 
 public class Model {
-	private Session customerSession;
-//	private Session transactionSession;
+	private Session dbSession;
 	private Customer loginCustomer;
 
 	public void setLoginCustomer(Customer loginCustomer) {
 		this.loginCustomer = loginCustomer;
 	}
 
-	// For Customer Entity
 	public void connectCustomer() {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
-				.addAnnotatedClass(Transaction.class).buildSessionFactory();
-		customerSession = factory.getCurrentSession();
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Customer.class)
+				.addAnnotatedClass(Transaction.class)
+				.buildSessionFactory();
+		dbSession = factory.getCurrentSession();
 		System.out.println("connection to database is established");
 	}
-
-	// For Transaction Entity
-//	public void connectTransaction() {
-//		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Transaction.class)
-//				.buildSessionFactory();
-//		transactionSession = factory.getCurrentSession();
-//		System.out.println("Connection established to Transaction database.");
-//	}
 
 	// create
 	public boolean registerCustomer(Customer c) {
 		try {
-			customerSession.beginTransaction();
-			customerSession.save(c);
-			customerSession.getTransaction().commit();
+			dbSession.beginTransaction();
+			dbSession.save(c);
+			dbSession.getTransaction().commit();
 			System.out.println("model.registerCustomer success...");
 			return true;
 		} catch (Exception e) {
@@ -53,9 +45,9 @@ public class Model {
 
 	public int verifyLogin() {
 		try {
-			customerSession.beginTransaction();
-			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
-			customerSession.getTransaction().commit();
+			dbSession.beginTransaction();
+			Customer cus = (Customer) dbSession.get(Customer.class, this.loginCustomer.getCusUserName());
+			dbSession.getTransaction().commit();
 			if (cus == null) {
 				return -1;// username is not existing in database
 			} else {
@@ -78,20 +70,20 @@ public class Model {
 		if (this.loginCustomer.getCusPassword().equals(inputNewPassword)) {
 			return 0;// new password is the same as old password
 		} else {
-			customerSession.beginTransaction();
-			Customer cus = (Customer) customerSession.get(Customer.class, this.loginCustomer.getCusUserName());
+			dbSession.beginTransaction();
+			Customer cus = (Customer) dbSession.get(Customer.class, this.loginCustomer.getCusUserName());
 			cus.setCusPassword(inputNewPassword);
-			customerSession.update(cus);
-			customerSession.getTransaction().commit();
+			dbSession.update(cus);
+			dbSession.getTransaction().commit();
 			return 1;// new password updated
 		}
 
 	}
 
 	public int checkBalance(String cusUserName) {
-		customerSession.beginTransaction();
-		Customer cus = (Customer) customerSession.get(Customer.class, cusUserName);
-		customerSession.getTransaction().commit();
+		dbSession.beginTransaction();
+		Customer cus = (Customer) dbSession.get(Customer.class, cusUserName);
+		dbSession.getTransaction().commit();
 		return cus.getCusBalance();
 
 	}
@@ -99,8 +91,8 @@ public class Model {
 	public int withdrawMoney(String user, String amount) {
 		try {
 
-			customerSession.beginTransaction();
-			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
+			dbSession.beginTransaction();
+			List<Customer> customerList = dbSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
 
 			int retrievedAmt = customerList.get(0).getCusBalance();
@@ -111,18 +103,17 @@ public class Model {
 
 				// Update CUSTOMER DB Balance
 				customerList.get(0).setCusBalance(finalAmt);
-				customerSession.update(customerList.get(0));
+				dbSession.update(customerList.get(0));
 				System.out.println("Updated CUSTOMER DB!");
 
 				// Insert Transaction Record to DB
-
 				Transaction t = new Transaction(user, getCurrentDate(), "CREDIT", withdrawAmt, "WITHDRAWAL",
 						"APPROVED");
-				customerSession.save(t);
+				dbSession.save(t);
 				System.out.println("Updated TRANSACTION DB!");
 
 				// Once both tables done, commit all transactions
-				customerSession.getTransaction().commit();
+				dbSession.getTransaction().commit();
 				System.out.println("Withdrawal Successful.");
 				return finalAmt;
 			} else {
@@ -138,18 +129,18 @@ public class Model {
 		try {
 			int loanAmt = Integer.parseInt(amount);
 			Transaction t = new Transaction(user, getCurrentDate(), "DEBIT", loanAmt, "LOAN REQUEST", "APPROVED");
-			customerSession.beginTransaction();
-			customerSession.save(t);
+			dbSession.beginTransaction();
+			dbSession.save(t);
 			System.out.println("Updated TRANSACTION DB!");
 
-			List<Customer> customerList = customerSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
+			List<Customer> customerList = dbSession.createQuery("FROM Customer c WHERE c.cusUserName = :user")
 					.setParameter("user", user).list();
 			int retrievedAmt = customerList.get(0).getCusBalance();
 			customerList.get(0).setCusBalance(loanAmt + retrievedAmt);
-			customerSession.update(customerList.get(0));
+			dbSession.update(customerList.get(0));
 			System.out.println("Updated CUSTOMER DB!");
 
-			customerSession.getTransaction().commit();
+			dbSession.getTransaction().commit();
 			System.out.println("Loan Application Submitted successfully.");
 
 			return 1;
@@ -166,12 +157,13 @@ public class Model {
 			Date end_tx_date = sdf.parse(dateConvert(endDate));
 
 			if (start_tx_date.before(end_tx_date) || start_tx_date.equals(end_tx_date)) {
-				customerSession.beginTransaction();
-				transactionList = customerSession.createQuery(
+				dbSession.beginTransaction();
+				transactionList = dbSession.createQuery(
 						"FROM Transaction t WHERE t.tx_date >= :startDate AND t.tx_date <= :endDate AND t.username = :user")
-						.setParameter("startDate", start_tx_date).setParameter("endDate", end_tx_date)
+						.setParameter("startDate", start_tx_date)
+						.setParameter("endDate", end_tx_date)
 						.setParameter("user", user).list();
-				customerSession.getTransaction().commit();
+				dbSession.getTransaction().commit();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -208,7 +200,6 @@ public class Model {
 		}
 		String dateString = format2.format(date);
 		dateString = dateString.replace("-", " ");
-		System.out.println(dateString);
 		return ((dateString));
 	}
 }
