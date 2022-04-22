@@ -15,20 +15,33 @@ public class Model {
 	private Session dbSession;
 	private Customer loginCustomer;
 
+	/**
+	 * Set the loginCustomer in the Model object.
+	 *
+	 * @param loginCustomer loginCustomer is customer who tries to login
+	 * 
+	 */
 	public void setLoginCustomer(Customer loginCustomer) {
 		this.loginCustomer = loginCustomer;
 	}
 
+	/**
+	 * Create the session factory to make connection to database.
+	 */
 	public void connectCustomer() {
-		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Customer.class)
-				.addAnnotatedClass(Transaction.class)
-				.buildSessionFactory();
+		SessionFactory factory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Customer.class)
+				.addAnnotatedClass(Transaction.class).buildSessionFactory();
 		dbSession = factory.getCurrentSession();
 		System.out.println("connection to database is established");
 	}
 
-	// create
+	/**
+	 * Returns {@code true} if the customer is registered successfully.
+	 *
+	 * @param c customer who is registered
+	 * 
+	 * @return {@code true} if the customer is registered successfully
+	 */
 	public boolean registerCustomer(Customer c) {
 		try {
 			dbSession.beginTransaction();
@@ -43,6 +56,11 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns {@code true} if the loginCustomer is existing in database.
+	 * 
+	 * @return {@code true} if the loginCustomer is existing in database
+	 */
 	public int verifyLogin() {
 		try {
 			dbSession.beginTransaction();
@@ -66,6 +84,13 @@ public class Model {
 
 	}
 
+	/**
+	 * Returns 1 if the inputNewPassword is changed successfully.
+	 * 
+	 * @param inputNewPassword new password to change
+	 * 
+	 * @return 1 if the inputNewPassword is changed successfully
+	 */
 	public int changePassword(String inputNewPassword) {
 		if (this.loginCustomer.getCusPassword().equals(inputNewPassword)) {
 			return 0;// new password is the same as old password
@@ -80,6 +105,13 @@ public class Model {
 
 	}
 
+	/**
+	 * Returns customer's account balance.
+	 * 
+	 * @param cusUserName custormer's name
+	 * 
+	 * @return customer's account balance
+	 */
 	public int checkBalance(String cusUserName) {
 		dbSession.beginTransaction();
 		Customer cus = (Customer) dbSession.get(Customer.class, cusUserName);
@@ -88,6 +120,15 @@ public class Model {
 
 	}
 
+	/**
+	 * Returns the amount of withdrawal if withdraw action is successful.
+	 * 
+	 * @param user   custormer's name
+	 * @param amount amount to withdraw
+	 * 
+	 * @return the amount of withdrawal if withdraw action is successful, or -1 if
+	 *         withdraw action is unsuccessful, or -2 if query throw exception.
+	 */
 	public int withdrawMoney(String user, String amount) {
 		try {
 
@@ -125,6 +166,14 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns 1 if apply Loan action is successful.
+	 * 
+	 * @param user   custormer's name
+	 * @param amount amount for loan
+	 * 
+	 * @return 1 if apply Loan action is successful
+	 */
 	public int applyLoan(String user, String amount) {
 		try {
 			int loanAmt = Integer.parseInt(amount);
@@ -149,6 +198,14 @@ public class Model {
 		}
 	}
 
+	/**
+	 * Returns a list of transaction within the given period.
+	 * 
+	 * @param startDate the starting data of the period
+	 * @param endDate   the ending date of the period
+	 * 
+	 * @return a list of transaction within the given period
+	 */
 	public List<Transaction> viewStatement(String startDate, String endDate, String user) {
 		List<Transaction> transactionList = null;
 		try {
@@ -160,8 +217,7 @@ public class Model {
 				dbSession.beginTransaction();
 				transactionList = dbSession.createQuery(
 						"FROM Transaction t WHERE t.tx_date >= :startDate AND t.tx_date <= :endDate AND t.username = :user")
-						.setParameter("startDate", start_tx_date)
-						.setParameter("endDate", end_tx_date)
+						.setParameter("startDate", start_tx_date).setParameter("endDate", end_tx_date)
 						.setParameter("user", user).list();
 				dbSession.getTransaction().commit();
 			}
@@ -175,6 +231,11 @@ public class Model {
 	 * -------------------------- Date Helper Methods -----------------------------
 	 */
 
+	/**
+	 * Returns today's date.
+	 *
+	 * @return today's date
+	 */
 	public Date getCurrentDate() {
 		Date tx_date = null;
 		try {
@@ -188,6 +249,13 @@ public class Model {
 		return tx_date;
 	}
 
+	/**
+	 * Returns a date in dd/MMM/yyyy string format
+	 *
+	 * @param input input is a string format of date
+	 * 
+	 * @return a date in dd/MMM/yyyy string format
+	 */
 	public String dateConvert(String input) {
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat format2 = new SimpleDateFormat("dd/MMM/yyyy");
@@ -195,7 +263,6 @@ public class Model {
 		try {
 			date = format1.parse(input);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		String dateString = format2.format(date);
