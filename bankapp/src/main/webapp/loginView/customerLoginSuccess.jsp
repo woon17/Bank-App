@@ -37,7 +37,7 @@
 						<a href="/bankapp/applyLoanView/applyLoan.html">Apply for Loan</a>
 					</button></li>
 				<li><button type="button">
-						<a href="/bankapp/viewTransactionView/viewStatement.html">View Statement</a>
+						<a href="/bankapp/viewStatementView/viewStatement.html">View Statement</a>
 					</button></li>
 				<li><button type="button">
 						<a href="/bankapp/CheckBalance">Check Balance</a>

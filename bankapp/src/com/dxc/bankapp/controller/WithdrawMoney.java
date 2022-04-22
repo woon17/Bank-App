@@ -30,7 +30,7 @@ public class WithdrawMoney extends HttpServlet {
 		if (status == -2) {
 			response.sendRedirect("/bankapp/withdrawMoneyView/withdrawMoneyFail.html");
 		} else if (status == -1) {
-			response.sendRedirect("/bankapp/withdrawMoneyException.html");
+			response.sendRedirect("/bankapp/withdrawMoneyView/withdrawMoneyException.html");
 		} else {
 			session.setAttribute("balance", status);
 			response.sendRedirect("/bankapp/withdrawMoneyView/withdrawMoneySuccess.jsp");
