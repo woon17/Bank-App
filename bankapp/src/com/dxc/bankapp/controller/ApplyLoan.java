@@ -24,6 +24,7 @@ public class ApplyLoan extends HttpServlet {
 		String username = (String) session.getAttribute("cusUserName");
 
 		Model model = new Model();
+		model.connectCustomer();
 		int status = model.applyLoan(username, amount);
 		response.sendRedirect(status == 1 ? "/bankapp/applyLoanView/applyLoanSuccess.jsp" : "/bankapp/applyLoanView/applyLoanFail.html");
 	}
