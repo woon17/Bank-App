@@ -245,3 +245,8 @@ a{
   text-decoration: none;
 
 }
+
+.statement_header{
+	display: flex;
+	justify-content: space-between;
+}
