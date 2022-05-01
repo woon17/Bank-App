@@ -14,15 +14,15 @@
 		</form>
 	</div>
 
-  <h1>User:<%
+  <h1><%
 		// println in broswer, in client machine. not in console
 		HttpSession ses = request.getSession();
 		out.println(ses.getAttribute("cusUserName"));
 		/* ses.getAttribute("un") */
-		%> password update successful</h1>
+		%>, your password has been updated successfully</h1>
   <div class="container loginSuccess">
     <div>
-      <h3>what would you like to do?</h3>
+      <h3>What would you like to do?</h3>
       <ul>
 		<li><button type="button">
 				<a href="/bankapp/changePasswordView/changePassword.html">Change Password</a>
